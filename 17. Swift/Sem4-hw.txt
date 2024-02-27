@@ -1,0 +1,77 @@
+// 1.Создать перечисление с видами пиццы (хотя бы 4 - 5 кейсов)
+
+enum PizzaType {
+case Margherita
+case Pepperoni
+case Hawaiian
+case Vegetarian
+case fourCheeses
+}
+// 2. Создать структуру пиццы, она должна содержать стоимость, вид пиццы, толстое или тонкое тесто и добавки (например, дополнительно добавить пепперони, помидоры, сыр). Вид пиццы должен быть вложенным типом для структуры пиццы. Подсказка: добавки лучше также сделать перечислением.
+
+struct Pizza {
+    var price: Double
+    var crustType: String
+    var toppings: [Toppings]
+    var pizzaType: PizzaType
+    
+   enum PizzaType {
+        case Margherita
+        case Pepperoni
+        case Hawaiian
+        case Vegetarian
+        case fourCheeses
+}
+    
+
+    enum Toppings {
+        case pepperoni
+        case tomatoes
+        case cheese
+    }
+}
+
+var myPizza = Pizza(price: 435, crustType: "thin", toppings: [.pepperoni, .cheese], pizzaType: .pepperoni)
+
+// 3.Создать класс пиццерии, добавить массив с возможными пиццами. Переменная с массивом должна быть приватной. Массив задается в инициализаторе.
+
+class Pizzeria {
+    private var pizzaList: [Pizza]
+    
+    init(pizzasList: [Pizza]) {
+        self.pizzaList = pizzaList
+    }
+
+// 4.Написать в классе пиццерии функции для добавления новой пиццы и для получения всех доступных пицц.    
+    
+  func addPizza(pizza: Pizza) {
+    pizzaList.append(pizza)
+}
+
+func getAllPizzas() -> [Pizza] {
+     pizzaList
+}
+
+
+// 5. Создать экземпляр класса пиццерии и добавить в него несколько пицц.
+
+// Создаем пиццерию
+var newPizzeria = Pizzeria(pizzaList: [])
+
+//  Создаем несколько пицц
+let pizza1 = Pizza(price: 445.00, crustType: "thin", toppings: [.pepperoni, .tomatoes, .cheese], pizzaType: .Pepperoni)
+let pizza2 = Pizza(price: 390.00, crustType: "thick", toppings: [.tomatoes, .cheese], pizzaType: .Margherita)
+let pizza3 = Pizza(price: 550.00, crustType: "thin", toppings: [.pepperoni, .cheese], pizzaType: .Hawaiian)
+
+// Добавляем пиццы в пиццерию
+newPizzeria.addPizza(pizza: pizza1)
+newPizzeria.addPizza(pizza: pizza2)
+newPizzeria.addPizza(pizza: pizza3)
+
+// Получаем список всех пицц в пиццерии
+let allPizzas = newPizzeria.getAllPizzas()
+
+// Выводим список пицц
+for pizza in allPizzas {
+    print("Пицца: \(pizza.pizzaType), цена: \(pizza.price), тип теста: \(pizza.crustType), начинки: \(pizza.toppings)")
+}
