@@ -1,0 +1,79 @@
+// Урок 5. Протоколы, классы и расширения
+
+// 1. В рамках прошлого дз был создан класс пиццерии с переменной, в которой хранится пицца, удалите ее. Необходимо создать структуру картошки фри, в которой будет стоимость и размер картошки и сделать так, чтобы в классе пиццерии была одна переменная, в которую можно было бы класть и пиццу, и картошку фри.
+// 2. Добавьте в класс пиццерии функцию, которая будет добавлять новую позицию в меню.
+// 3. Создайте протокол, в котором будут содержаться функции открытия и закрытия.
+// 4. Написать расширение для класса пиццерии, в котором будет реализован протокол из пункта 3.
+// 5. Написать функцию, в которой происходит вычитание одного числа из другого. Функция должна работать и с Int, и с Double.Функция должна возвращать результат вычитания.
+
+struct Pizza {
+    var price: Double
+    var crustType: String
+    var toppings: [Toppings]
+    var pizzaType: PizzaType
+}
+
+struct FrenchFries {
+    var price: Double
+    var size: String
+}
+
+protocol OpenClose {
+    func open()
+    func close()
+}
+
+enum PizzaType {
+    case margherita
+    case pepperoni
+    case vegetarian
+    case hawaiian
+    case mushroom
+}
+
+enum Toppings {
+    case pepperoni
+    case tomatoes
+    case cheese
+}
+
+class Pizzeria: OpenClose {
+    private var menu: [Any] = []
+    
+    func addMenuItem(item: Any) {
+        menu.append(item)
+    }
+    
+    func open() {
+        print("Pizzeria is open!")
+    }
+    
+    func close() {
+        print("Pizzeria is closed!")
+    }
+}
+
+let pizzeria = Pizzeria()
+
+let pizza = Pizza(price: 12.99, crustType: "Thin Crust", toppings: [.cheese, .tomatoes], pizzaType: .margherita)
+let fries = FrenchFries(price: 5.99, size: "Large")
+
+pizzeria.addMenuItem(item: pizza)
+pizzeria.addMenuItem(item: fries)
+
+pizzeria.open()
+pizzeria.close()
+
+func subtractNumbers(_ a: Int, _ b: Int) -> Int {
+    return a - b
+}
+
+func subtractNumbers(_ a: Double, _ b: Double) -> Double {
+    return a - b
+}
+
+let resultInt = subtractNumbers(10, 5)
+let resultDouble = subtractNumbers(10.5, 3.2)
+
+print("Result of subtracting 5 from 10: \(resultInt)")
+print("Result of subtracting 3.2 from 10.5: \(resultDouble)")
